@@ -55,7 +55,7 @@ module.exports = function(output,lib_location,test_dir, sha, devices, entry_poin
                         // TODO: expose which target sdk to build for
                         log("Problem with debugScript; output is:" + output);
 
-                        var debugScript = path.join(output, 'cordova', 'scripts','build');
+                        var debugScript = path.join(output, 'cordova', 'build');
                         // note that the following has to work for 3.0.0 and later and it change just AFTER 3.0.x release
                         fs.writeFileSync(debugScript, fs.readFileSync(debugScript, 'utf-8').replace(/PROJECT_PATH\/build"/, 'PROJECT_PATH/build/device"').replace(/i386/g,'armv7').replace(/iphonesimulator/, 'iphoneos').replace(/SDK=`.*`/, 'SDK="iphoneos"'), 'utf-8');
                     } catch(e) {
