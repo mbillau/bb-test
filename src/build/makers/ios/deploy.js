@@ -60,8 +60,9 @@ function run_through(sha, devices, bundlePath, bundleId, callback) {
     if (d) {
         logged_url=false;
         log('Uninstalling app on ' + d);
-        var cmd = listdevices + ' uninstall --id=' + d + ' --bundle-id=org.apache.cordova.example';
-        shell.exec(cmd, {silent:true,async:true}, function(code, output) {
+        var cmd = listdevices + ' uninstall --id=' + d + ' --bundle-id=' + bundleId; // org.apache.cordova.example'; // shouldn't we be using the buildId var? in ios.js it's org.apache.mobilespec
+        log("Now using bundleID to lsit devices...:" + cmd);
+        shell.exec(cmd, {silent:false,async:true}, function(code, output) {
             if (code > 0) log('Uninstall on ' + d + ' failed, continuing anyways.');
 
             log('Install + deploy on ' + d);
