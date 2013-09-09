@@ -123,13 +123,15 @@ limitations under the License.
         postTests: function(json) {
             console.log('JASMINE - posting tests');
             var xhr = new XMLHttpRequest();
-            var doc_id = [ library_sha, json.version, json.model].map(encodeURIComponent).join('__');
+            var doc_id = [ library_sha, json.version, json.model].map(encodeURIComponent).join('__');       // Does this get concatenated or something?
             // TODO: expose the db in this url for customization
             var doc_url = this.server + '/mobilespec_results/' + doc_id;
             console.log('Test Results URL = '+doc_url+' <<<end test result>>>'); 
             xhr.open("PUT", doc_url, true);
             xhr.onreadystatechange=function() {
                 console.log('onreadystatechange');
+                console.log(JSON.stringify(xhr));
+
                 if (xhr.readyState==4) {
                     console.log('readystate==4, status: ' + xhr.status);
                     if (xhr.status==201) {
@@ -137,9 +139,10 @@ limitations under the License.
                         // we added the doc, hooray
                         if(!(jasmine.runnerResults.failed)) {   // THis might be a bad comparison, since we're getting TEST FAILED when it was written successfully...
                             console.log('[[[ TEST OK ]]]');
-                            console.log(jasmine.runnerResults.failed);
+                            console.log(jasmine.runnerResults.failed);  // logs a number like "3"
                         } else {
-                            console.log('[[[ TEST FAILED ]]]');
+                            console.log('[[[ TEST FAILED ]]]');         // The test should be for existance on runnerResults.failed()
+                                                                        // Well, I guess this is okay, it just means that "One of the many tests failed, but it didn't fail deploying/testing on device"
                             console.log(jasmine.runnerResults.failed);
                         }
                         console.log('>>> DONE <<<');
@@ -202,7 +205,6 @@ limitations under the License.
                 }
             };
             xhr.send(JSON.stringify(json));
-            alert("Sent!");
         },
     };
 
