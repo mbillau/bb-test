@@ -135,10 +135,12 @@ limitations under the License.
                     if (xhr.status==201) {
                         // HTTP 201 Created
                         // we added the doc, hooray
-                        if(!(jasmine.runnerResults.failed)) {
+                        if(!(jasmine.runnerResults.failed)) {   // THis might be a bad comparison, since we're getting TEST FAILED when it was written successfully...
                             console.log('[[[ TEST OK ]]]');
+                            console.log(jasmine.runnerResults.failed);
                         } else {
                             console.log('[[[ TEST FAILED ]]]');
+                            console.log(jasmine.runnerResults.failed);
                         }
                         console.log('>>> DONE <<<');
                         if (blackberry && blackberry.app && blackberry.app.exit) blackberry.app.exit();
@@ -191,13 +193,16 @@ limitations under the License.
                         exehar.send(null);
                     } else {
                         console.log('some crazy shit happened. couch returned some balltastic info. status code: ' + xhr.status);
+                        console.log("Did it even give responseText?:");
                         console.log(xhr.responseText);
+                        console.log("Full stringified xhr:" + JSON.stringify(xhr));
                         console.log('>>> DONE <<<');
                         if (blackberry && blackberry.app && blackberry.app.exit) blackberry.app.exit();
                     }
                 }
             };
             xhr.send(JSON.stringify(json));
+            alert("Sent!");
         },
     };
 
