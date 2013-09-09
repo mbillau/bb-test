@@ -121,7 +121,7 @@ limitations under the License.
             });
         },
         postTests: function(json) {
-            console.log('posting tests');
+            console.log('JASMINE - posting tests');
             var xhr = new XMLHttpRequest();
             var doc_id = [ library_sha, json.version, json.model].map(encodeURIComponent).join('__');
             // TODO: expose the db in this url for customization
